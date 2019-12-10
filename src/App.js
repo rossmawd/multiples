@@ -10,7 +10,8 @@ class App extends React.Component {
     let selected = i + 1
     let numberStates = Object.assign([], this.state.numberStates)
     let selectedHighlighted = numberStates[i]
-    //TODO : change to a do-while starting at selected --> 144
+    //TODO : change below to a do-while loop 
+    //this way I will not waste time checking values less than the selected one
     numberStates = numberStates.map((highlighted, i) => {
       if (highlighted && (i + 1) % selected === 0 && selectedHighlighted) {
         highlighted = false
@@ -39,6 +40,7 @@ class App extends React.Component {
   }
 
   isPrime = (num) => {
+    //Mike: I took this if() out of the for loop as 1 will never be prime
     if (num === 1) { return "grid-item" }
     for (var i = 2; i < num; i++) {
       if (num % i === 0) { return "grid-item"; }
