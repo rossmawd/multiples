@@ -6,17 +6,18 @@ class App extends React.Component {
     numberStates: Array(144).fill(false)
   }
 
-  toggleMultiples = (state, i) => {
-    let currentFactor = i + 1
+  toggleMultiples = (i) => {
+    let selected = i + 1
     let numberStates = Object.assign([], this.state.numberStates)
+    let selectedHighlighted = numberStates[i]
 
-    numberStates = numberStates.map((x, i) => {
-      if (x && (i + 1) % currentFactor === 0) {
-        x = false
-      } else if (!x && (i + 1) % currentFactor === 0) {
-        x = true
+    numberStates = numberStates.map((highlighted, i) => {
+      if (highlighted && (i + 1) % selected === 0 && selectedHighlighted) {
+        highlighted = false
+      } else if (!highlighted && (i + 1) % selected === 0) {
+        highlighted = true
       }
-      return x
+      return highlighted
     })
     this.setState({ numberStates: numberStates })
   }
@@ -52,13 +53,13 @@ class App extends React.Component {
         <br></br>
         <button onClick={() => this.handleClick()}> CLEAR ALL</button>
         <div className="grid-container">
-          {numberStates.map((state, i) => (
+          {numberStates.map((state, index) => (
             <div
-              className={this.calculateHighlight(state, i)}
-              onClick={() => this.toggleMultiples(state, i)}
-              key={i + 1}
+              className={this.calculateHighlight(state, index)}
+              onClick={() => this.toggleMultiples(index)}
+              key={index + 1}
             >
-              {i + 1}
+              {index + 1}
             </div>
           ))
           }
@@ -71,24 +72,3 @@ class App extends React.Component {
 export default App;
 
 
-
-
-// numberStates = numberStates.map((numberObj, i) => {
-
-//   if (currentFactorHighlighted && (i + 1) % currentFactor === 0) {
-//     numberObj = {}
-//     numberObj[i + 1] = false
-//   } else if (!currentFactorHighlighted && (i + 1) % currentFactor === 0) {
-//     numberObj = {}
-//     numberObj[i + 1] = true
-//   }
-//   return numberObj
-// })
-
-// let log = currentFactorHighlighted ? `Un-highlighting multiples of ${i + 1} now`
-// : `Highlighting multiples of ${i + 1} now`
-// console.log(log)
-
-  // numberStates = numberStates.filter((numberObj, i) => {
-    //   return numberObj[i + 1] % currentFactor === 0
-    // })
