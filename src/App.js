@@ -46,8 +46,10 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <label> Green: factors || Blue: Prime </label>
+        <label for="key">Key: </label>
+        <text id="key" className="key"> Green: factors || Blue: Prime </text>
         <br />
+        <br></br>
         <button onClick={() => this.handleClick()}> CLEAR ALL</button>
         <div className="grid-container">
           {numberStates.map((state, i) => (
