@@ -8,7 +8,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.constructNumbersArray()
-    console.log("The App Has mounted")
+    // console.log("The App Has mounted")
   }
 
   constructNumbersArray = () => {
@@ -30,40 +30,26 @@ class App extends React.Component {
     }
   }
 
-  toggleMultiples = (numberObj, i) => {
+  toggleMultiples = (factorObj, i) => {
     let currentFactor = i + 1
+    let currentFactorHighlighted = factorObj[i + 1]
     let numberStates = Object.assign([], this.state.numberStates)
 
-    if (numberObj[i + 1]) {
-      console.log(`Un-highlighting multiples of ${i + 1} now`)
-      numberStates = numberStates.map((numberObj, i) => {
-        let highlighted = numberObj[i + 1]
-        if (highlighted && (i + 1) % currentFactor === 0) {
-          numberObj = {}
-          numberObj[i + 1] = false
-        }
-        console.log("the new number object is", numberObj)
-        return numberObj
-      })
+    numberStates = numberStates.map((numberObj, i) => {
 
-    } else {
-      console.log(`Highlighting multiples of ${i + 1} now`)
-      numberStates = numberStates.map((numberObj, i) => {
-        let highlighted = numberObj[i + 1]
-        if (!highlighted && (i + 1) % currentFactor === 0) {
-          numberObj = {}
-          numberObj[i + 1] = true
-        }
-        console.log("the new number object is", numberObj)
-        return numberObj
-      })
-    }
+      if (currentFactorHighlighted && (i + 1) % currentFactor === 0) {
+        numberObj = {}
+        numberObj[i + 1] = false
+      } else if (!currentFactorHighlighted && (i + 1) % currentFactor === 0) {
+        numberObj = {}
+        numberObj[i + 1] = true
+      }
+      return numberObj
+    })
     this.setState({ numberStates: numberStates })
   }
 
-
   returnNumberJSX = (numberObj, i) => {
-    // console.log(numberObj)
     return (
       <div
         className="grid-item"
@@ -74,25 +60,18 @@ class App extends React.Component {
         {i + 1}
       </div>
     )
-
   }
 
   render() {
-    // let numbers = Array.from(Array(144), (x, index) => x = index + 1)
-    let numbers = Object.assign([], this.state.numberStates)
-    console.log(numbers)
+    let numberStates = Object.assign([], this.state.numberStates)
 
     return (
       <div className="App">
-
         <div className="grid-container">
-          {/* <div class="grid-item" style={this.styleX}>1</div> */}
-          {numbers.map((number, i) => (
-            this.returnNumberJSX(number, i)
+          {numberStates.map((numberObj, i) => (
+            this.returnNumberJSX(numberObj, i)
           ))
           }
-
-
         </div>
       </div >
     );
@@ -100,3 +79,12 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+
+
+
+
+// let log = currentFactorHighlighted ? `Un-highlighting multiples of ${i + 1} now`
+// : `Highlighting multiples of ${i + 1} now`
+// console.log(log)
