@@ -10,12 +10,16 @@ class App extends React.Component {
     let selected = i + 1
     let numberStates = Object.assign([], this.state.numberStates)
     let selectedHighlighted = numberStates[i]
-
+    //TODO : change to a do-while starting at selected --> 144
     numberStates = numberStates.map((highlighted, i) => {
       if (highlighted && (i + 1) % selected === 0 && selectedHighlighted) {
         highlighted = false
-      } else if (!highlighted && (i + 1) % selected === 0) {
+      } else if (!highlighted && (i + 1) % selected === 0 && !selectedHighlighted) {
         highlighted = true
+        //last condition ensures higher numbers that have previously been 
+        //unhighlighted stay that way
+      } else if (!highlighted && (i + 1) % selected === 0 && selectedHighlighted) {
+        highlighted = false
       }
       return highlighted
     })
