@@ -36,17 +36,34 @@ class App extends React.Component {
 
     if (numberObj[i + 1]) {
       console.log(`Un-highlighting multiples of ${i + 1} now`)
-
+      numberStates = numberStates.map((numberObj, i) => {
+        let highlighted = numberObj[i + 1]
+        if (highlighted && (i + 1) % currentFactor === 0) {
+          numberObj = {}
+          numberObj[i + 1] = false
+        }
+        console.log("the new number object is", numberObj)
+        return numberObj
+      })
 
     } else {
       console.log(`Highlighting multiples of ${i + 1} now`)
+      numberStates = numberStates.map((numberObj, i) => {
+        let highlighted = numberObj[i + 1]
+        if (!highlighted && (i + 1) % currentFactor === 0) {
+          numberObj = {}
+          numberObj[i + 1] = true
+        }
+        console.log("the new number object is", numberObj)
+        return numberObj
+      })
     }
-
+    this.setState({ numberStates: numberStates })
   }
 
 
   returnNumberJSX = (numberObj, i) => {
-    console.log(numberObj)
+    // console.log(numberObj)
     return (
       <div
         className="grid-item"
